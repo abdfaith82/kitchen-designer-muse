@@ -1,9 +1,7 @@
 name: Android CI
 
 # Builds the debug APK on every push / pull request.
-# Uses the Gradle distribution directly (gradle-version 8.9) because
-# gradle-wrapper.jar is not committed yet — Android Studio generates it
-# on first open; once it exists, switch the build step to ./gradlew.
+# Uses the Gradle distribution directly (gradle-version 8.9).
 # Unity is NOT built here: unity/ is source only, and the app module
 # builds without the optional :unityLibrary module.
 on:
@@ -22,6 +20,12 @@ jobs:
           distribution: temurin
           java-version: "17"
       - uses: android-actions/setup-android@v3
+        with:
+          # The action's default package list is the legacy "tools" package,
+          # which no longer exists in the SDK repository (sdkmanager fails
+          # with "Failed to find package 'tools'"). Install exactly what
+          # this project needs instead: compileSdk 35 + Build-Tools 35.0.0.
+          packages: "platforms;android-35 build-tools;35.0.0 platform-tools"
       - uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: "8.9"
