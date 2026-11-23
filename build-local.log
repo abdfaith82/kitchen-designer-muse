@@ -1,0 +1,630 @@
+WARNING: We recommend using a newer Android Gradle plugin to use compileSdk = 35
+
+This Android Gradle plugin (8.5.2) was tested up to compileSdk = 34.
+
+You are strongly encouraged to update your project to use a newer
+Android Gradle plugin that has been tested with compileSdk = 35.
+
+If you are already using the latest version of the Android Gradle plugin,
+you may need to wait until a newer version with support for compileSdk = 35 is available.
+
+For more information refer to the compatibility table:
+https://d.android.com/r/tools/api-level-support
+
+To suppress this warning, add/update
+    android.suppressUnsupportedCompileSdk=35
+to this project's gradle.properties.
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:mergeDebugStartupProfile UP-TO-DATE
+> Task :app:mergeExtDexDebug UP-TO-DATE
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :app:compileDebugKotlin
+> Task :app:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:compileDebugUnitTestKotlin
+> Task :app:processDebugJavaRes
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeDebugJavaResource
+> Task :app:mergeProjectDexDebug
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :app:testDebugUnitTest
+Unable to connect to the child process 'Gradle Test Executor 2'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 2'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 3'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 3'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 4'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 4'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 5'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 5'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 6'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 6'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 7'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 7'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 8'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 8'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 9'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 9'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 10'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 10'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 11'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 11'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 12'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 12'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 13'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 13'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 14'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 14'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 15'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 15'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 16'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 16'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 17'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 17'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at jdk.internal.reflect.GeneratedMethodAccessor53.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Unable to connect to the child process 'Gradle Test Executor 18'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+org.gradle.process.internal.ExecException: Unable to connect to the child process 'Gradle Test Executor 18'.
+It is likely that the child process have crashed - please find the stack trace in the build log.
+This exception might occur when the build machine is extremely loaded.
+The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.doStart(DefaultWorkerProcess.java:202)
+	at org.gradle.process.internal.worker.DefaultWorkerProcess.start(DefaultWorkerProcess.java:178)
+	at org.gradle.process.internal.worker.DefaultWorkerProcessBuilder$MemoryRequestingWorkerProcess.start(DefaultWorkerProcessBuilder.java:274)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.forkProcess(ForkingTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.worker.ForkingTestClassProcessor.processTestClass(ForkingTestClassProcessor.java:92)
+	at org.gradle.api.internal.tasks.testing.processors.RestartEveryNTestClassProcessor.processTestClass(RestartEveryNTestClassProcessor.java:52)
+	at jdk.internal.reflect.GeneratedMethodAccessor53.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.FailureHandlingDispatch.dispatch(FailureHandlingDispatch.java:30)
+	at org.gradle.internal.dispatch.AsyncDispatch.dispatchMessages(AsyncDispatch.java:87)
+	at org.gradle.internal.dispatch.AsyncDispatch.access$000(AsyncDispatch.java:36)
+	at org.gradle.internal.dispatch.AsyncDispatch$1.run(AsyncDispatch.java:71)
+	at org.gradle.internal.concurrent.InterruptibleRunnable.run(InterruptibleRunnable.java:42)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.internal.operations.CurrentBuildOperationPreservingRunnable.run(CurrentBuildOperationPreservingRunnable.java:51)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+> Task :app:testDebugUnitTest FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:testDebugUnitTest'.
+> Unable to connect to the child process 'Gradle Test Executor 1'.
+  It is likely that the child process have crashed - please find the stack trace in the build log.
+  This exception might occur when the build machine is extremely loaded.
+  The connection attempt hit a timeout after 120.0 seconds (last known process state: STARTED, running: true).
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 48m 46s
+42 actionable tasks: 13 executed, 29 up-to-date

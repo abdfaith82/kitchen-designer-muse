@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  title: Kitchen Designer Cloud Render API
+  version: 1.0.0
+  description: >
+    Queue-based cloud rendering for the Kitchen Designer app. Jobs are
+    submitted with a parametric scene, advance QUEUED -> RUNNING ->
+    SUCCEEDED/FAILED, and expose a PNG result. Jobs carry a render quality
+    preset (named preset and/or explicit resolutionWidth / samplesPerPixel /
+    denoiser fields); invalid preset values are rejected with HTTP 400, and
+    the resolved preset is echoed back in the job metadata. Note: the current
+    server simulates progress and returns a placeholder PNG — GPU path
+    tracing is still simulated; a real GPU path tracer plugs in behind this
+    same API.
+servers:
+  - url: http://localhost:8080
+paths:
+  /health:
+    get:
+      operationId: health
+      summary: Liveness check
+      responses:
+        '200':
+          description: Server is up
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                required: [ok]
+  /v1/renders:
+    post:
+      operationId: submitRender
+      summary: Submit a render job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RenderSubmitRequest'
+      responses:
+        '201':
+          description: Job queued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: job-0001
+                  status:
+                    $ref: '#/components/schemas/RenderJobStatus'
+                  progress:
+                    type: integer
+                    minimum: 0
+                    maximum: 100
+                  preset:
+                    type: string
+                    description: Resolved preset name (CUSTOM when explicit fields overrode a named preset)
+                    example: ULTRA
+                  renderPreset:
+                    $ref: '#/components/schemas/RenderPresetMetadata'
+                required: [id, status, progress]
+        '400':
+          description: >
+            Invalid JSON body, or invalid render preset values: unknown
+            preset name, resolutionWidth outside [1280, 1920, 3840],
+            samplesPerPixel outside [16, 64, 256, 1024], or a non-boolean
+            denoiser. The error message names the offending field and the
+            allowed values.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/renders/{id}:
+    get:
+      operationId: getRender
+      summary: Poll a render job's status
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          description: Current job state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RenderJob'
+        '404':
+          description: Unknown job id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/renders/{id}/cancel:
+    post:
+      operationId: cancelRender
+      summary: Cancel a render job (marks it FAILED with errorMessage "cancelled by client")
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          description: Job cancelled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  status:
+                    $ref: '#/components/schemas/RenderJobStatus'
+                  errorMessage:
+                    type: string
+                    nullable: true
+                required: [id, status]
+        '404':
+          description: Unknown job id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/renders/{id}/result.png:
+    get:
+      operationId: getRenderResult
+      summary: Download the rendered PNG (only when the job has SUCCEEDED)
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          description: Rendered image
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Unknown job id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Job exists but has not SUCCEEDED yet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  parameters:
+    JobId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: job-0001
+  schemas:
+    RenderJobStatus:
+      type: string
+      enum: [QUEUED, RUNNING, SUCCEEDED, FAILED]
+    RenderSubmitRequest:
+      type: object
+      properties:
+        projectId:
+          type: string
+        quality:
+          type: string
+          enum: [PREVIEW_2K, FINAL_4K, PANORAMA_360]
+        cameraName:
+          type: string
+          example: main
+        lightingMode:
+          type: string
+          example: DAY
+        preset:
+          type: string
+          enum: [PREVIEW, STANDARD, ULTRA, CUSTOM]
+          description: >
+            Named render quality preset. PREVIEW = 1280 wide / 64 spp /
+            denoiser on; STANDARD = 1920 wide / 256 spp / denoiser on;
+            ULTRA = 3840 wide / 1024 spp / denoiser off. Defaults to
+            STANDARD when omitted. The explicit fields below override the
+            named preset field by field; a job whose explicit fields change
+            any preset value is reported back as preset CUSTOM. CUSTOM may
+            also be sent directly (by clients that resolved overrides
+            themselves): it starts from the STANDARD values and applies the
+            explicit fields.
+        resolutionWidth:
+          type: integer
+          enum: [1280, 1920, 3840]
+          description: Output width in pixels (height is derived, 16:9). Any other value is rejected with 400.
+        samplesPerPixel:
+          type: integer
+          enum: [16, 64, 256, 1024]
+          description: Path-tracing samples per pixel tier. Any other value is rejected with 400.
+        denoiser:
+          type: boolean
+          description: Whether the denoiser pass runs. Non-boolean values are rejected with 400.
+        scene:
+          type: object
+          description: Arbitrary scene JSON object (same shapes as the Unity LoadProject payload).
+          additionalProperties: true
+      required: [projectId, quality, scene]
+    RenderPresetMetadata:
+      type: object
+      description: >
+        The resolved render preset carried in job metadata. `engine` is
+        SIMULATED until a real GPU path tracer is plugged in behind this API.
+      properties:
+        name:
+          type: string
+          enum: [PREVIEW, STANDARD, ULTRA, CUSTOM]
+        resolutionWidth:
+          type: integer
+          enum: [1280, 1920, 3840]
+        resolutionHeight:
+          type: integer
+          description: Derived from the width at a fixed 16:9 aspect (720 / 1080 / 2160).
+        samplesPerPixel:
+          type: integer
+          enum: [16, 64, 256, 1024]
+        denoiser:
+          type: boolean
+        engine:
+          type: string
+          enum: [SIMULATED]
+      required: [name, resolutionWidth, resolutionHeight, samplesPerPixel, denoiser, engine]
+    RenderJob:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/RenderJobStatus'
+        progress:
+          type: integer
+          minimum: 0
+          maximum: 100
+        resultUrl:
+          type: string
+          nullable: true
+          example: /v1/renders/job-0001/result.png
+        errorMessage:
+          type: string
+          nullable: true
+        preset:
+          type: string
+          description: Resolved preset name (flat convenience field mirroring renderPreset.name)
+          example: STANDARD
+        renderPreset:
+          $ref: '#/components/schemas/RenderPresetMetadata'
+      required: [id, status, progress, resultUrl, errorMessage]
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      required: [error]
