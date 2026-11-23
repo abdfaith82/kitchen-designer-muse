@@ -1,0 +1,41 @@
+# Android / Gradle
+*.iml
+.gradle/
+local.properties
+**/build/
+**/generated/
+*.apk
+*.aab
+*.ap_
+*.dex
+# Keep the Gradle wrapper jar when Android Studio generates it — CI needs it.
+# gradle-wrapper.jar is intentionally NOT ignored.
+
+# Android Studio / IntelliJ
+.idea/
+*.iws
+*.ipr
+.DS_Store
+
+# Unity (project source is in unity/KitchenDesignerUnity/)
+unity/KitchenDesignerUnity/Library/
+unity/KitchenDesignerUnity/Temp/
+unity/KitchenDesignerUnity/Obj/
+unity/KitchenDesignerUnity/Build/
+unity/KitchenDesignerUnity/Builds/
+unity/KitchenDesignerUnity/Logs/
+unity/KitchenDesignerUnity/UserSettings/
+unity/KitchenDesignerUnity/MemoryCaptures/
+*.csproj
+*.sln
+
+# Python render server
+server/__pycache__/
+server/*.pyc
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+Thumbs.db
