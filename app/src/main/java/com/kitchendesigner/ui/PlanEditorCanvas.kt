@@ -177,8 +177,12 @@ fun PlanEditorCanvas(
             val left = placed.position.xMm * scale
             val top = size.height - (placed.position.yMm + fd) * scale
             val selected = i == state.selectedIndex
+            // v0.5.0: unselected units are filled with their actual cabinet
+            // finish colour, so the plan previews the designed kitchen;
+            // the selected unit keeps the blue highlight.
             drawRect(
-                color = if (selected) Color(0xFF1565C0) else Color(0xFF8D6E63),
+                color = if (selected) Color(0xFF1565C0)
+                        else Color(com.kitchendesigner.model.Materials.previewColorArgb(placed.unit.materialId)),
                 topLeft = Offset(left, top),
                 size = Size(fw * scale, fd * scale),
             )

@@ -152,9 +152,29 @@ class HttpCloudRenderClient(
                 if (i > 0) append(",")
                 append("{\"catalogId\":\"").append(escape(u.unit.catalogId)).append("\",\"xMm\":").append(u.position.xMm)
                 append(",\"yMm\":").append(u.position.yMm).append(",\"rotationDeg\":").append(u.rotationDeg)
-                append(",\"materialId\":\"").append(escape(u.unit.materialId)).append("\"}")
+                append(",\"materialId\":\"").append(escape(u.unit.materialId)).append("\"")
+                // v0.5.0: full customization so the photoreal renderer can
+                // build exactly the designed kitchen (sizes, door/handle
+                // styles, glass fronts, interior LED).
+                append(",\"widthMm\":").append(u.unit.widthMm).append(",\"heightMm\":").append(u.unit.heightMm)
+                append(",\"depthMm\":").append(u.unit.depthMm)
+                append(",\"doorStyle\":\"").append(u.unit.custom.doorStyle.name).append("\"")
+                append(",\"handleStyle\":\"").append(u.unit.custom.handleStyle.name).append("\"")
+                append(",\"handleFinishId\":\"").append(escape(u.unit.custom.handleFinishId)).append("\"")
+                append(",\"interiorLed\":").append(u.unit.custom.interiorLed).append("}")
             }
-            append("]}}")
+            val f = p.finishes
+            append("],\"finishes\":{")
+            append("\"countertopMaterialId\":\"").append(escape(f.countertopMaterialId)).append("\"")
+            append(",\"backsplashId\":\"").append(escape(f.backsplashId)).append("\"")
+            append(",\"floorFinishId\":\"").append(escape(f.floorFinishId)).append("\"")
+            append(",\"wallFinishId\":\"").append(escape(f.wallFinishId)).append("\"")
+            append(",\"plinthFinishId\":\"").append(escape(f.plinthFinishId)).append("\"")
+            append(",\"corniceFinishId\":\"").append(escape(f.corniceFinishId)).append("\"")
+            append(",\"pendantId\":").append(if (f.pendantId == null) "null" else "\"${escape(f.pendantId)}\"")
+            append("},\"lighting\":{")
+            append("\"underCabinetLed\":").append(f.underCabinetLed)
+            append(",\"coveLed\":").append(f.coveLed).append("}}}")
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.kitchendesigner.R
+import com.kitchendesigner.assistant.ReferenceStyle
+import com.kitchendesigner.assistant.ReferenceStyles
 import com.kitchendesigner.bom.BomCalculator
 import com.kitchendesigner.bom.CurrencySpec
 import com.kitchendesigner.engine.KitchenPlanInput
@@ -28,6 +31,10 @@ import com.kitchendesigner.engine.LayoutGenerator
 import com.kitchendesigner.engine.LayoutType
 import com.kitchendesigner.engine.NkbaValidator
 import com.kitchendesigner.engine.RuleId
+import com.kitchendesigner.model.DoorStyle
+import com.kitchendesigner.model.HandleStyle
+import com.kitchendesigner.model.KitchenFinishes
+import com.kitchendesigner.model.Materials
 import com.kitchendesigner.model.Opening
 import com.kitchendesigner.model.OpeningKind
 import com.kitchendesigner.model.PlacedUnit
@@ -55,7 +62,14 @@ fun EditorScreen() {
     val report = remember(generated) {
         NkbaValidator.validate(KitchenPlanInput(triangle = generated.triangle, workAisleMm = generated.workAisleMm))
     }
-    val bom = remember(generated, currency) { BomCalculator.calculate(generated.units, currency = currency) }
+    // v0.5.0 customization state: null = the untouched generated layout.
+    // Any edit (reference style, per-unit change) replaces the unit list;
+    // changing room size or layout above resets it via remember(generated).
+    var customUnits by remember(generated) { mutableStateOf<List<PlacedUnit>?>(null) }
+    var finishes by remember(generated) { mutableStateOf(KitchenFinishes()) }
+    var selectedUnit by remember(generated) { mutableStateOf<Int?>(null) }
+    val units = customUnits ?: generated.units
+    val bom = remember(units, currency) { BomCalculator.calculate(units, currency = currency) }
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
@@ -80,7 +94,15 @@ fun EditorScreen() {
                 else OutlinedButton(onClick = { layoutType = t }) { Text(label) }
             }
         }
-        Text(stringResource(R.string.units_generated, generated.units.size))
+        Text(stringResource(R.string.units_generated, units.size))
+        CustomizeSection(
+            units = units,
+            finishes = finishes,
+            selectedUnit = selectedUnit,
+            onSelectUnit = { selectedUnit = it },
+            onUnitsChange = { customUnits = it },
+            onFinishesChange = { finishes = it },
+        )
         Text(stringResource(R.string.nkba_title), style = androidx.compose.material3.MaterialTheme.typography.titleMedium)
         report.results.forEach { r ->
             val text = when (r.ruleId) {
@@ -102,7 +124,7 @@ fun EditorScreen() {
             }
         }
         Text(stringResource(R.string.bom_total, String.format(Locale.US, "%,.2f %s", bom.totalInCurrency, bom.currency.code)))
-        MultiRoomSection(kitchenUnits = generated.units, kitchenRoom = Room(width, depth))
+        MultiRoomSection(kitchenUnits = units, kitchenRoom = Room(width, depth))
     }
 }
 
@@ -172,5 +194,153 @@ private fun MultiRoomSection(kitchenUnits: List<PlacedUnit>, kitchenRoom: Room) 
             })
             Text(stringResource(R.string.opening_details, kindLabel, wallLabel, opening.offsetMm, opening.widthMm))
         }
+    }
+}
+
+/**
+ * Full customization (v0.5.0): one-tap reference-photo styles, a per-unit
+ * editor (dimensions, door style, handle, finish, interior LED) for the
+ * selected unit, and design-wide surfaces + LED lighting. All edits are
+ * pure model copies — geometry, NKBA rules and the BOM follow the model.
+ */
+@Composable
+private fun CustomizeSection(
+    units: List<PlacedUnit>,
+    finishes: KitchenFinishes,
+    selectedUnit: Int?,
+    onSelectUnit: (Int?) -> Unit,
+    onUnitsChange: (List<PlacedUnit>) -> Unit,
+    onFinishesChange: (KitchenFinishes) -> Unit,
+) {
+    Text(stringResource(R.string.customize_title), style = androidx.compose.material3.MaterialTheme.typography.titleMedium)
+
+    // Reference-photo styles: restyle the whole kitchen in one tap.
+    ChipRow {
+        ReferenceStyle.entries.forEach { style ->
+            val label = stringResource(when (style) {
+                ReferenceStyle.CLASSIC_CREAM_SHAKER -> R.string.ref_style_classic
+                ReferenceStyle.LUXE_WALNUT_CHARCOAL -> R.string.ref_style_luxe
+                ReferenceStyle.MINIMAL_CREAM -> R.string.ref_style_minimal
+            })
+            OutlinedButton(onClick = {
+                val styled = ReferenceStyles.apply(units, style)
+                onUnitsChange(styled.units)
+                onFinishesChange(styled.finishes)
+            }) { Text(label) }
+        }
+    }
+
+    // Unit picker.
+    ChipRow {
+        units.forEachIndexed { index, placed ->
+            val label = "#$index ${placed.unit.catalogId}"
+            if (index == selectedUnit) Button(onClick = { onSelectUnit(index) }) { Text(label) }
+            else OutlinedButton(onClick = { onSelectUnit(index) }) { Text(label) }
+        }
+    }
+
+    val sel = selectedUnit?.takeIf { it in units.indices } ?: return
+    val placed = units[sel]
+    val unit = placed.unit
+    fun replace(newUnit: com.kitchendesigner.model.CabinetUnit) {
+        onUnitsChange(units.mapIndexed { i, p -> if (i == sel) p.copy(unit = newUnit) else p })
+    }
+
+    Text(stringResource(R.string.unit_edit_title, sel, unit.catalogId), style = androidx.compose.material3.MaterialTheme.typography.titleSmall)
+    DimRow(stringResource(R.string.unit_width), unit.widthMm, step = 50) { replace(unit.copy(widthMm = it.coerceIn(150, 2_400))) }
+    DimRow(stringResource(R.string.unit_height), unit.heightMm, step = 10) { replace(unit.copy(heightMm = it.coerceIn(100, 2_800))) }
+    DimRow(stringResource(R.string.unit_depth), unit.depthMm, step = 10) { replace(unit.copy(depthMm = it.coerceIn(100, 1_200))) }
+
+    Text(stringResource(R.string.door_style_label))
+    ChipRow {
+        DoorStyle.entries.forEach { door ->
+            val label = stringResource(when (door) {
+                DoorStyle.SHAKER -> R.string.door_shaker
+                DoorStyle.SLAB -> R.string.door_slab
+                DoorStyle.GLASS -> R.string.door_glass
+                DoorStyle.HANDLELESS -> R.string.door_handleless
+            })
+            val onClick = { replace(unit.copy(custom = unit.custom.copy(doorStyle = door))) }
+            if (door == unit.custom.doorStyle) Button(onClick = onClick) { Text(label) }
+            else OutlinedButton(onClick = onClick) { Text(label) }
+        }
+    }
+    Text(stringResource(R.string.handle_style_label))
+    ChipRow {
+        HandleStyle.entries.forEach { handle ->
+            val label = stringResource(when (handle) {
+                HandleStyle.BAR -> R.string.handle_bar
+                HandleStyle.KNOB -> R.string.handle_knob
+                HandleStyle.INTEGRATED -> R.string.handle_integrated
+                HandleStyle.NONE -> R.string.handle_none
+            })
+            val onClick = { replace(unit.copy(custom = unit.custom.copy(handleStyle = handle))) }
+            if (handle == unit.custom.handleStyle) Button(onClick = onClick) { Text(label) }
+            else OutlinedButton(onClick = onClick) { Text(label) }
+        }
+    }
+    Text(stringResource(R.string.finish_label))
+    ChipRow {
+        Materials.CABINET_FINISHES.forEach { finish ->
+            val onClick = { replace(unit.copy(materialId = finish.id)) }
+            if (finish.id == unit.materialId) Button(onClick = onClick) { Text(finish.id) }
+            else OutlinedButton(onClick = onClick) { Text(finish.id) }
+        }
+    }
+    ChipRow {
+        val toggle = { replace(unit.copy(custom = unit.custom.copy(interiorLed = !unit.custom.interiorLed))) }
+        if (unit.custom.interiorLed) Button(onClick = toggle) { Text(stringResource(R.string.led_interior)) }
+        else OutlinedButton(onClick = toggle) { Text(stringResource(R.string.led_interior)) }
+        OutlinedButton(onClick = {
+            onUnitsChange(units.map { p ->
+                if (p.unit.type == unit.type) p.copy(unit = p.unit.copy(materialId = unit.materialId, custom = unit.custom)) else p
+            })
+        }) { Text(stringResource(R.string.apply_to_type, unit.type.name)) }
+    }
+
+    Text(stringResource(R.string.finishes_title), style = androidx.compose.material3.MaterialTheme.typography.titleSmall)
+    Text(stringResource(R.string.countertop_label))
+    ChipRow {
+        Materials.COUNTERTOPS.forEach { top ->
+            val onClick = { onFinishesChange(finishes.copy(countertopMaterialId = top.id)) }
+            if (top.id == finishes.countertopMaterialId) Button(onClick = onClick) { Text(top.id) }
+            else OutlinedButton(onClick = onClick) { Text(top.id) }
+        }
+    }
+    Text(stringResource(R.string.backsplash_label))
+    ChipRow {
+        Materials.BACKSPLASHES.forEach { back ->
+            val onClick = { onFinishesChange(finishes.copy(backsplashId = back.id)) }
+            if (back.id == finishes.backsplashId) Button(onClick = onClick) { Text(back.id) }
+            else OutlinedButton(onClick = onClick) { Text(back.id) }
+        }
+    }
+    ChipRow {
+        val toggleUnder = { onFinishesChange(finishes.copy(underCabinetLed = !finishes.underCabinetLed)) }
+        if (finishes.underCabinetLed) Button(onClick = toggleUnder) { Text(stringResource(R.string.led_under_cabinet)) }
+        else OutlinedButton(onClick = toggleUnder) { Text(stringResource(R.string.led_under_cabinet)) }
+        val toggleCove = { onFinishesChange(finishes.copy(coveLed = !finishes.coveLed)) }
+        if (finishes.coveLed) Button(onClick = toggleCove) { Text(stringResource(R.string.led_cove)) }
+        else OutlinedButton(onClick = toggleCove) { Text(stringResource(R.string.led_cove)) }
+    }
+}
+
+/** A horizontally scrollable row of chips/buttons. */
+@Composable
+private fun ChipRow(content: @Composable () -> Unit) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+    ) { content() }
+}
+
+/** Label + value + step buttons for one dimension in millimetres. */
+@Composable
+private fun DimRow(label: String, valueMm: Int, step: Int, onChange: (Int) -> Unit) {
+    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Text(label, modifier = Modifier.weight(1f))
+        OutlinedButton(onClick = { onChange(valueMm - step) }) { Text("−") }
+        Text("$valueMm")
+        OutlinedButton(onClick = { onChange(valueMm + step) }) { Text("+") }
     }
 }

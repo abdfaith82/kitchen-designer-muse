@@ -291,5 +291,52 @@ class PresetHttpTest(HttpIntegrationTest):
         self.assertIn("denoiser", json.loads(body)["error"])
 
 
+class SceneCustomizationTest(unittest.TestCase):
+    """v0.5.0: per-unit customization + finishes ride in the scene payload;
+    the server validates the enum fields and echoes a scene summary."""
+
+    def styled_payload(self):
+        return sample_payload(
+            units=[
+                {"catalogId": "base-600", "doorStyle": "SHAKER", "handleStyle": "BAR", "interiorLed": False},
+                {"catalogId": "tall-600", "doorStyle": "GLASS", "handleStyle": "BAR", "interiorLed": True},
+                {"catalogId": "wall-600", "doorStyle": "GLASS", "handleStyle": "NONE", "interiorLed": True},
+            ],
+            finishes={"countertopMaterialId": "counter-granite-black",
+                      "backsplashId": "backsplash-greek-key"},
+            lighting={"underCabinetLed": True, "coveLed": True},
+        )
+
+    def test_scene_summary_counts_units_led_and_glass(self):
+        job = RenderQueue().submit(self.styled_payload())
+        summary = job.to_dict()["sceneSummary"]
+        self.assertEqual(summary["unitCount"], 3)
+        self.assertEqual(summary["interiorLedUnits"], 2)
+        self.assertEqual(summary["glassUnits"], 2)
+        self.assertTrue(summary["underCabinetLed"])
+        self.assertTrue(summary["coveLed"])
+        self.assertEqual(summary["countertopMaterialId"], "counter-granite-black")
+        self.assertEqual(summary["backsplashId"], "backsplash-greek-key")
+
+    def test_scene_summary_defaults_without_scene(self):
+        job = RenderQueue().submit({"projectId": "p1"})
+        summary = job.to_dict()["sceneSummary"]
+        self.assertEqual(summary["unitCount"], 0)
+        self.assertEqual(summary["interiorLedUnits"], 0)
+        self.assertIsNone(summary["countertopMaterialId"])
+
+    def test_invalid_door_style_rejected(self):
+        payload = sample_payload(units=[{"catalogId": "base-600", "doorStyle": "FRENCH"}])
+        with self.assertRaises(ValueError) as ctx:
+            RenderQueue().submit(payload)
+        self.assertIn("doorStyle", str(ctx.exception))
+
+    def test_invalid_handle_style_rejected(self):
+        payload = sample_payload(units=[{"catalogId": "base-600", "handleStyle": "LEVER"}])
+        with self.assertRaises(ValueError) as ctx:
+            RenderQueue().submit(payload)
+        self.assertIn("handleStyle", str(ctx.exception))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

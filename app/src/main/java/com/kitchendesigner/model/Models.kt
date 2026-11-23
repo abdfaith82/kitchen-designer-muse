@@ -33,6 +33,10 @@ data class CabinetUnit(
     val depthMm: Int,
     val materialId: String = "front-oak",
     val appliance: ApplianceType? = null,
+    /** Per-unit customization (v0.5.0): door style, handle, interior LED.
+     *  Defaulted, so every pre-v0.5.0 construction site keeps compiling and
+     *  behaving exactly as before. */
+    val custom: UnitCustomization = UnitCustomization(),
 )
 
 enum class ApplianceType { SINK, COOKTOP, OVEN, FRIDGE, DISHWASHER, HOOD }
@@ -61,6 +65,8 @@ data class ProjectRoom(
     val name: String = "",
     val units: List<PlacedUnit> = emptyList(),
     val openings: List<Opening> = emptyList(),
+    /** Design-wide surfaces + lighting (v0.5.0); defaulted for back-compat. */
+    val finishes: KitchenFinishes = KitchenFinishes(),
 ) {
     init { require(id.isNotBlank()) { "ProjectRoom id must not be blank" } }
     /** Display name: the explicit [name], or empty (UI falls back to the type label). */
@@ -112,6 +118,9 @@ data class Project(
 
     /** Back-compat view: the active room's placed units. */
     val units: List<PlacedUnit> get() = activeRoom.units
+
+    /** Back-compat view: the active room's finishes (v0.5.0). */
+    val finishes: KitchenFinishes get() = activeRoom.finishes
 
     fun roomById(roomId: String): ProjectRoom? = rooms.firstOrNull { it.id == roomId }
 

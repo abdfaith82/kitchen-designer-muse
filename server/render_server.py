@@ -158,6 +158,63 @@ PLACEHOLDER_PNG = make_png()
 # Job store + deterministic worker
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# Scene customization (v0.5.0)
+# ---------------------------------------------------------------------------
+# The scene payload carries the full per-unit customization the app designed
+# (door/handle styles, glass fronts, interior LED) plus design-wide finishes
+# and LED lighting flags. The server validates the enum fields when present
+# (anything else is a client bug and rejected with HTTP 400, like invalid
+# preset fields) and echoes a compact summary into the job metadata so
+# clients can confirm the render was queued for exactly the designed
+# kitchen. The summary never affects the simulated render itself.
+
+DOOR_STYLES = ("SHAKER", "SLAB", "GLASS", "HANDLELESS")
+HANDLE_STYLES = ("BAR", "KNOB", "INTEGRATED", "NONE")
+
+
+def validate_scene(payload: dict) -> None:
+    """Raise ValueError for invalid scene customization fields."""
+    scene = payload.get("scene") if isinstance(payload, dict) else None
+    if scene is None:
+        return
+    if not isinstance(scene, dict):
+        raise ValueError("scene must be an object")
+    units = scene.get("units", [])
+    if not isinstance(units, list):
+        raise ValueError("scene.units must be a list")
+    for i, unit in enumerate(units):
+        if not isinstance(unit, dict):
+            raise ValueError(f"scene.units[{i}] must be an object")
+        door = unit.get("doorStyle")
+        if door is not None and door not in DOOR_STYLES:
+            raise ValueError(f"scene.units[{i}].doorStyle must be one of {DOOR_STYLES}")
+        handle = unit.get("handleStyle")
+        if handle is not None and handle not in HANDLE_STYLES:
+            raise ValueError(f"scene.units[{i}].handleStyle must be one of {HANDLE_STYLES}")
+
+
+def scene_summary(payload: dict) -> dict:
+    """Compact, deterministic summary of the scene's customization."""
+    scene = payload.get("scene") if isinstance(payload, dict) else None
+    if not isinstance(scene, dict):
+        return {"unitCount": 0, "interiorLedUnits": 0, "glassUnits": 0,
+                "underCabinetLed": False, "coveLed": False,
+                "countertopMaterialId": None, "backsplashId": None}
+    units = scene.get("units") or []
+    lighting = scene.get("lighting") or {}
+    finishes = scene.get("finishes") or {}
+    return {
+        "unitCount": len(units),
+        "interiorLedUnits": sum(1 for u in units if isinstance(u, dict) and u.get("interiorLed") is True),
+        "glassUnits": sum(1 for u in units if isinstance(u, dict) and u.get("doorStyle") == "GLASS"),
+        "underCabinetLed": lighting.get("underCabinetLed") is True,
+        "coveLed": lighting.get("coveLed") is True,
+        "countertopMaterialId": finishes.get("countertopMaterialId"),
+        "backsplashId": finishes.get("backsplashId"),
+    }
+
+
 class RenderJob:
     def __init__(self, job_id: str, payload: dict):
         self.id = job_id
@@ -173,6 +230,7 @@ class RenderJob:
         self.ticks_required = self.preset["_ticks"]
         scene = payload.get("scene") if isinstance(payload, dict) else None
         self.force_fail = isinstance(scene, dict) and scene.get("forceFail") is True
+        self.scene_summary = scene_summary(payload)
 
     def preset_metadata(self) -> dict:
         return {k: v for k, v in self.preset.items() if not k.startswith("_")}
@@ -188,6 +246,7 @@ class RenderJob:
             # plus the full preset metadata block.
             "preset": self.preset["name"],
             "renderPreset": self.preset_metadata(),
+            "sceneSummary": self.scene_summary,
         }
 
 
@@ -208,6 +267,7 @@ class RenderQueue:
         payload's preset fields are invalid; no job is created in that case
         and the id counter is not advanced."""
         resolve_preset(payload)  # validation only; RenderJob resolves again
+        validate_scene(payload)
         with self._lock:
             self._counter += 1
             job = RenderJob("job-%04d" % self._counter, payload)

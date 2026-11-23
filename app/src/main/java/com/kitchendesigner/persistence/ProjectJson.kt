@@ -3,6 +3,9 @@ package com.kitchendesigner.persistence
 import com.kitchendesigner.model.ApplianceType
 import com.kitchendesigner.model.CabinetType
 import com.kitchendesigner.model.CabinetUnit
+import com.kitchendesigner.model.DoorStyle
+import com.kitchendesigner.model.HandleStyle
+import com.kitchendesigner.model.KitchenFinishes
 import com.kitchendesigner.model.Opening
 import com.kitchendesigner.model.OpeningKind
 import com.kitchendesigner.model.PlacedUnit
@@ -12,6 +15,7 @@ import com.kitchendesigner.model.ProjectRoom
 import com.kitchendesigner.model.Room
 import com.kitchendesigner.model.RoomType
 import com.kitchendesigner.model.SwingDirection
+import com.kitchendesigner.model.UnitCustomization
 
 /**
  * Hand-rolled JSON save/load for the full [Project] — no external
@@ -68,7 +72,9 @@ object ProjectJson {
             if (i > 0) append(",")
             appendUnit(u)
         }
-        append("],\"openings\":[")
+        append("],\"finishes\":")
+        appendFinishes(r.finishes)
+        append(",\"openings\":[")
         r.openings.forEachIndexed { i, o ->
             if (i > 0) append(",")
             appendOpening(o)
@@ -85,10 +91,29 @@ object ProjectJson {
         append(",\"depthMm\":").append(c.depthMm)
         append(",\"materialId\":").append(quoted(c.materialId))
         if (c.appliance != null) append(",\"appliance\":\"").append(c.appliance.name).append("\"")
+        // v0.5.0 customization — additive optional fields; older readers
+        // ignore them, and the loader defaults them when absent.
+        append(",\"doorStyle\":\"").append(c.custom.doorStyle.name).append("\"")
+        append(",\"handleStyle\":\"").append(c.custom.handleStyle.name).append("\"")
+        append(",\"handleFinishId\":").append(quoted(c.custom.handleFinishId))
+        append(",\"interiorLed\":").append(c.custom.interiorLed)
         append(",\"xMm\":").append(u.position.xMm)
         append(",\"yMm\":").append(u.position.yMm)
         append(",\"rotationDeg\":").append(u.rotationDeg)
         append(",\"isIsland\":").append(u.isIsland)
+        append("}")
+    }
+
+    private fun StringBuilder.appendFinishes(f: KitchenFinishes) {
+        append("{\"countertopMaterialId\":").append(quoted(f.countertopMaterialId))
+        append(",\"backsplashId\":").append(quoted(f.backsplashId))
+        append(",\"floorFinishId\":").append(quoted(f.floorFinishId))
+        append(",\"wallFinishId\":").append(quoted(f.wallFinishId))
+        append(",\"plinthFinishId\":").append(quoted(f.plinthFinishId))
+        append(",\"corniceFinishId\":").append(quoted(f.corniceFinishId))
+        append(",\"underCabinetLed\":").append(f.underCabinetLed)
+        append(",\"coveLed\":").append(f.coveLed)
+        if (f.pendantId != null) append(",\"pendantId\":").append(quoted(f.pendantId))
         append("}")
     }
 
@@ -154,6 +179,22 @@ object ProjectJson {
             name = m.str("name", ""),
             units = (m["units"] as? List<*>).orEmpty().map { parseUnit(it as Map<*, *>) },
             openings = (m["openings"] as? List<*>).orEmpty().map { parseOpening(it as Map<*, *>) },
+            finishes = (m["finishes"] as? Map<*, *>)?.let { parseFinishes(it) } ?: KitchenFinishes(),
+        )
+    }
+
+    private fun parseFinishes(m: Map<*, *>): KitchenFinishes {
+        val d = KitchenFinishes()
+        return KitchenFinishes(
+            countertopMaterialId = m.str("countertopMaterialId", d.countertopMaterialId),
+            backsplashId = m.str("backsplashId", d.backsplashId),
+            floorFinishId = m.str("floorFinishId", d.floorFinishId),
+            wallFinishId = m.str("wallFinishId", d.wallFinishId),
+            plinthFinishId = m.str("plinthFinishId", d.plinthFinishId),
+            corniceFinishId = m.str("corniceFinishId", d.corniceFinishId),
+            underCabinetLed = m["underCabinetLed"] as? Boolean ?: d.underCabinetLed,
+            coveLed = m["coveLed"] as? Boolean ?: d.coveLed,
+            pendantId = m["pendantId"] as? String,
         )
     }
 
@@ -172,6 +213,12 @@ object ProjectJson {
             depthMm = m.int("depthMm"),
             materialId = m.str("materialId", "front-oak"),
             appliance = (m["appliance"] as? String)?.let { enumOr<ApplianceType>(it, ApplianceType.SINK) },
+            custom = UnitCustomization(
+                doorStyle = enumOr<DoorStyle>(m.str("doorStyle", DoorStyle.SLAB.name), DoorStyle.SLAB),
+                handleStyle = enumOr<HandleStyle>(m.str("handleStyle", HandleStyle.BAR.name), HandleStyle.BAR),
+                handleFinishId = m.str("handleFinishId", "handle-chrome"),
+                interiorLed = m["interiorLed"] as? Boolean ?: false,
+            ),
         ),
         position = PointMm(m.int("xMm"), m.int("yMm")),
         rotationDeg = m.int("rotationDeg", 0),
